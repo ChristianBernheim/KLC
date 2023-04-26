@@ -1,0 +1,54 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border: 1px solid black;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border: 1px solid black;
+}
+
+th {
+    background-color: #4474B9;
+}
+
+.column0 {
+    background-color: #FFFFFF;
+}
+
+.column1 {
+    background-color: #FFF2AA;
+}
+
+.column2 {
+    background-color: #FDC78A;
+}
+
+.column3 {
+    background-color: #F59581;
+}
+
+.cell.selected {
+    background-color: yellow;
+}
