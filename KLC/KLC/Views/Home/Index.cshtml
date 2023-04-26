@@ -1,50 +1,50 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
+<link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
 <div class="text-center">
     
-		<h1>NATIONAL EARLY WARNING SCORE 2 (NEWS2)</h1>
+	<h1>NATIONAL EARLY WARNING SCORE 2 (NEWS2)</h1>
 	<table>
 		<tr>
-			<th>Fysiologiska arametrar</th>
-			<th>3</th>
-			<th>2</th>
-			<th>1</th>
-			<th>0</th>
-			<th>1</th>
-			<th>2</th>
-			<th>3</th>
+			<th>Fysiologiska parametrar</th>
+			<th class="text-center">3</th>
+			<th class="text-center">2</th>
+			<th class="text-center">1</th>
+			<th class="text-center">0</th>
+			<th class="text-center">1</th>
+			<th class="text-center">2</th>
+			<th class="text-center">3</th>
 		</tr>
 		<tr>
 			<th>Andningsfrekvens</th>
-			<td class="cell, column3">8</td>
-			<td class="cell, column2"></td>
-			<td class="cell, column1">9-11</td>
-			<td class="cell, column0">12-20</td>
-			<td class="cell, column1"></td>
-			<td class="cell, column2">21-24</td>
-			<td class="cell, column3">25</td>
+			<td class="column3"><input type="radio" name="andningsfrekvens" value="3" id="anf_1"/><label for="anf_1">≤8</label></td>
+			<td class="column2"></td>
+			<td class="column1"><input type="radio" name="andningsfrekvens" value="1" id="anf_2"/><label for="anf_2">9-11</label></td>
+			<td class="column0"><input type="radio" name="andningsfrekvens" value="0" id="anf_3"/><label for="anf_3">12-20</label></td>
+			<td class="column1"></td>
+			<td class="column2"><input type="radio" name="andningsfrekvens" value="2" id="anf_4"/><label for="anf_4">21-24</label></td>
+			<td class="column3"><input type="radio" name="andningsfrekvens" value="3" id="anf_5"/><label for="anf_5">≥25</label></td>
 		</tr>
-		<tr class="tableRow">
+		<tr>
 			<th>Syremättnad 1</th>
-			<td class="cell, column3"> ≤91 </td>
-			<td class="cell, column2"> 92-93 </td>
-			<td class="cell, column1"> 94-95 </td>
-			<td class="cell, column0"> ≥96 </td>
-			<td class="cell, column1">  </td>
-			<td class="cell, column2">  </td>
-			<td class="cell, column3">  </td>
+			<td class="column3"><input type="radio" name="syremättnad1" value="3" id="syrma_1"/><label for="syrma_1">≤91</label></td>
+			<td class="column2"><input type="radio" name="syremättnad1" value="2" id="syrma_2"/><label for="syrma_2">92-93</label></td>
+			<td class="column1"><input type="radio" name="syremättnad1" value="1" id="syrma_3"/><label for="syrma_3">94-95</label></td>
+			<td class="column0"><input type="radio" name="syremättnad1" value="0" id="syrma_4"/><label for="syrma_4">≥96</label></td>
+			<td class="column1">  </td>
+			<td class="column2">  </td>
+			<td class="column3">  </td>
 		</tr>
 		<tr>
 			<th>Syremättnad 2</th>
-			<td class="cell, column3"> ≤83 </td>
-			<td class="cell, column2"> 84-85 </td>
-			<td class="cell, column1"> 86-87 </td>
-			<td class="cell, column0"> 88-92 </td>
-			<td class="cell, column1"> 93-94 <br/> med syrgas </td>
-			<td class="cell, column2"> 95-96 <br /> med syrgas </td>
-			<td class="cell, column3"> ≥97 <br /> med syrgas </td>
+			<td class="column3"><input type="radio" name="syremättnad2" value="3" id="syrmb_1"/><label for="syrmb_1">≤83</label></td>
+			<td class="column2"><input type="radio" name="syremättnad2" value="2" id="syrmb_2"/><label for="syrmb_2">84-85</label></td>
+			<td class="column1"><input type="radio" name="syremättnad2" value="1" id="syrmb_3"/><label for="syrmb_3">86-87</label></td>
+			<td class="column0"><input type="radio" name="syremättnad2" value="0" id="syrmb_4"/><label for="syrmb_4">88-92</label></td>
+			<td class="column1"><input type="radio" name="syremättnad2" value="1" id="syrmb_5"/><label for="syrmb_5">93-94<p>med syrgas</p></label></td>
+			<td class="column2"><input type="radio" name="syremättnad2" value="2" id="syrmb_6"/><label for="syrmb_6">95-96<p>med syrgas</p></label></td>
+			<td class="column3"><input type="radio" name="syremättnad2" value="3" id="syrmb_7"/><label for="syrmb_7">≥97<p>med syrgas</p></label></td>
 		</tr>
 		<tr>
 			<th>Tillförd syrgas</th>
@@ -97,6 +97,19 @@
 			<td class="cell, column3">  </td>
 		</tr>
 	</table>
+
+	<script>
+	document.addEventListener("mousedown", (e) => {
+    const radio = document.querySelector("#" + e.target.attributes.for.nodeValue);
+    if (radio.checked) {
+        const override = () => {
+            radio.checked = false;
+            radio.removeEventListener("click", override);
+        }
+        radio.addEventListener("click", override);
+    }
+	});
+	</script>
 
 </div>
 
