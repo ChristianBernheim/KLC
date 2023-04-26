@@ -1,5 +1,12 @@
+@import"https://fonts.googleapis.com/css2?family=Karla:wght@300&family=Lato:wght@700&display=swap";
+:root {
+    --text-font: "Karla", sans-serif;
+    --title-font: "Lato", sans-serif;
+}
+
 html {
   font-size: 14px;
+  box-sizing:border-box;
 }
 
 @media (min-width: 768px) {
@@ -25,7 +32,6 @@ table {
 th,
 td {
     text-align: left;
-    padding: 8px;
     border: 1px solid black;
 }
 
@@ -33,21 +39,7 @@ th {
     background-color: #4474B9;
 }
 
-.column0 {
-    background-color: #FFFFFF;
-}
 
-.column1 {
-    background-color: #FFF2AA;
-}
-
-.column2 {
-    background-color: #FDC78A;
-}
-
-.column3 {
-    background-color: #F59581;
-}
 
 .cell.selected {
     background-color: yellow;
