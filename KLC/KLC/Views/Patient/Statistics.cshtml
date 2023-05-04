@@ -1,0 +1,41 @@
+﻿@{
+    ViewData["Title"] = "Statistics";
+}
+<link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
+<div class="text-center">
+
+    <div class="options-container">
+        <label class="switch">
+            <input type="checkbox" name="toggle" id="toggle-chart" />
+            <span class="slider round"></span>
+        </label>
+        <label for="toggle">Avancerad graf</label>
+    </div>
+    <div class="chart-container">
+        <canvas class="chart top" id="simple-chart"></canvas>
+        <canvas class="chart bot hide" id="advanced-chart"></canvas>
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module">
+
+        // importera simpel och avancerad graf
+        import  simpleChart  from "/js/simpleChart.js";
+        import  advancedChart  from "/js/advancedChart.js";
+
+        //hämta html element
+        const toggle = document.querySelector("#toggle-chart");
+        const simple = document.querySelector("#simple-chart");
+        const advanced = document.querySelector("#advanced-chart");
+
+        //toggla mellan charts
+        toggle.addEventListener("input", () => {
+            simple.classList.toggle("hide");
+            advanced.classList.toggle("hide");
+        });
+
+    </script>
+</div>
+
