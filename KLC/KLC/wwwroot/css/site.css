@@ -31,10 +31,10 @@
 
     --length-md-small: 32px;
     --length-md-medium: 64px;
-    --length-md-large: 96px;
+    --length-md-large: 96px; 
 
-    /*shadow*/
-    --shadow-standard: 0 var(--length-sm-small) var(--length-sm-small) rgba(0,0,0,0.2);
+    /*drop shadow*/
+    --shadow-standard: 0 var(--length-sm-small) 2px rgba(0,0,0,0.3);
 }
 
 .example{
@@ -127,6 +127,7 @@ th {
     margin: 0;
 }
 
+/*info section*/
 .info-section{
     text-align:left;
 }
@@ -136,6 +137,39 @@ th {
     margin: 0;
     margin-top:var(--length-sm-medium)
 }
+/*controls section*/
+.controls{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:var(--length-md-small);
+    padding:var(--length-md-small);
+}
+
+.controls a, .controls input {
+ all: unset;
+}
+
+    .controls .newsbutton {
+        display: grid;
+        place-content: center;
+        width: 60%;
+        height: var(--length-md-medium);
+        font-weight: bold;
+        border: none;
+        background-color: var(--hv-neutral);
+        border-radius: var(--length-sm-small);
+        filter: drop-shadow(var(--shadow-standard));
+        user-select: none;
+        cursor: pointer;
+    }
+
+.controls .newsbutton.submit {
+    background-color:var(--hv-blue);
+    color:var(--white);
+}
+
+
 
 /* chart stuff*/
 .chart-container {

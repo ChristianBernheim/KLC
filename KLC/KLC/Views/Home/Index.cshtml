@@ -8,7 +8,7 @@
 		<div class="title-section">
 			<div class="patient-wrapper">
 				<div class="white-on-blue">
-					<p>Fyll i värden för patient:</p>
+					<p>Fyll i värden för patient 4:</p>
 				</div>
 				<div>
 					<p>1991-09-26-XXXX</p>
@@ -16,7 +16,7 @@
 			</div>
 			<h1>NEWS2</h1>
 		</div>
-		<form id="newsform" asp-controller="results" method="post" asp-action="/someaction">
+		<form id="newsform" asp-controller="results" method="post" asp-action="someaction">
 		<table>
 			<tr>
 				<th>Fysiologiska parametrar</th>
@@ -119,9 +119,11 @@
 
 	</div>
 
-	<div></div>
+	<div class="controls">
+		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
 	<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />
-	<a  class="newsbutton" asp-controller="Home" asp-action="Index">Visa historik</a>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
+	</div>
 	
 
 	<script>
