@@ -1,8 +1,29 @@
 @import"https://fonts.googleapis.com/css2?family=Karla:wght@300&family=Lato:wght@700&display=swap";
 :root {
+    /*fonts*/
     --text-font: "Karla", sans-serif;
     --title-font: "Lato", sans-serif;
+    /*Färgschema*/
+    --hv-blue: #31b0d5;
+    --hv-blue-light: #5bc0de;
+    --hv-blue-dark: #1c4c55;
+    --hv-neutral: #c4bfb6;
+    --hv-neutral-light: #eeedea;
+    /*news färger*/
+    --news-blue: #4874b5;
+    --news-red: #ec8c83;
+    --news-red-light: #f0b8b4;
+    --news-orange: #f8c58d;
+    --news-orange-light: #fbdfc4;
+    --news-yellow: #fef5ad;
+    --news-yellow-light: #fefadc;
+    --news-gray: #d3d3d3;
+    --news-gray-light: #e9e9e9;
+    /*vit och svart*/
+    --white: #ffffff;
+    --black: #202020;
 }
+
 
 html {
   font-size: 14px;
