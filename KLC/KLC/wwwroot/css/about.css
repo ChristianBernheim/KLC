@@ -6,16 +6,20 @@
 
 }
 
-.member p, .member h1{
-    margin:0;
+.member p, .member h1, .member h2 {
+    margin: 0;
 }
 
-.member p{
-    font-size:0.8em;
-}
+
 
 .member h1 {
     font-size:1em;
+}
+.member h2 {
+    font-size: 0.9em;
+}
+.member p {
+    font-size: 0.8em;
 }
 
 .member {
