@@ -44,3 +44,32 @@ th {
 .cell.selected {
     background-color: yellow;
 }
+
+/* chart stuff*/
+.chart-container {
+    display: flex;
+    flex-direction: column;
+    background-color: whitesmoke;
+    max-width: 1280px;
+    padding: 2rem;
+    overflow: hidden;
+}
+
+.chart {
+    background-color: white;
+    transition: all 0.3s ease-in-out;
+}
+
+.hide {
+    position: fixed;
+    transform: scale(0);
+    opacity: 0;
+}
+
+.options-container {
+    display: flex;
+    margin: 8px;
+    gap: 4px;
+    align-items: center;
+    font-size: large;
+}
