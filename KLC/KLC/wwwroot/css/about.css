@@ -1,0 +1,34 @@
+﻿.iteration{
+    text-align:left;
+}
+
+.members{
+
+}
+
+.member p, .member h1{
+    margin:0;
+}
+
+.member p{
+    font-size:0.8em;
+}
+
+.member h1 {
+    font-size:1em;
+}
+
+.member {
+    text-align: right;
+    background-color: var(--white);
+    color:var(--black);
+    padding:var(--length-sm-medium);
+}
+
+.member:nth-child(2n) {
+    text-align:left;
+    background-color:var(--hv-neutral-light);
+}
+
+
+
