@@ -4,9 +4,10 @@ import srcdata from "./data.js";
 
 //hämta html element
 const canvas = document.querySelector("#simple-chart");
+const container = document.querySelector(".chart-container");
+console.log("hello");
 
-//sätt höjd bredd på canvas
-canvas.width = 800;
+canvas.width = 500;
 canvas.height = 400;
 
 //hämta canvas kontext
@@ -123,5 +124,7 @@ let mChart = new Chart(ctx, {
     },
   },
 });
+
+
 
 export default mChart;

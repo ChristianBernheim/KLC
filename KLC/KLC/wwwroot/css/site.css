@@ -3,7 +3,6 @@
     /*fonts*/
     --text-font: "Karla", sans-serif;
     --title-font: "Lato", sans-serif;
-
     /*Färgschema*/
     --hv-blue: #31b0d5;
     --hv-blue-light: #5bc0de;
@@ -20,27 +19,20 @@
     --news-yellow-light: #fefadc;
     --news-gray: #d3d3d3;
     --news-gray-light: #e9e9e9;
-    /*Vit och svart*/
+    /*Basics*/
     --white: #ffffff;
     --black: #202020;
-
+    --red: #D53131;
     /*Lengths small, medíum*/
     --length-sm-small: 4px;
     --length-sm-medium: 8px;
     --length-sm-large: 16px;
-
     --length-md-small: 32px;
     --length-md-medium: 64px;
-    --length-md-large: 96px; 
-
+    --length-md-large: 96px;
     /*drop shadow*/
     --shadow-standard: 0 var(--length-sm-small) 2px rgba(0,0,0,0.3);
 }
-
-.example{
-    background-color: var(--hv-blue);
-}
-
 
 html {
   font-size: 14px;
@@ -81,6 +73,8 @@ th {
 .cell.selected {
     background-color: yellow;
 }
+
+
 
 /*general style*/
 .content-wrapper{
@@ -150,40 +144,61 @@ th {
  all: unset;
 }
 
-    .controls .newsbutton {
-        display: grid;
-        place-content: center;
-        width: 60%;
-        height: var(--length-md-medium);
-        font-weight: bold;
-        border: none;
-        background-color: var(--hv-neutral);
-        border-radius: var(--length-sm-small);
-        filter: drop-shadow(var(--shadow-standard));
-        user-select: none;
-        cursor: pointer;
-    }
-
-.controls .newsbutton.submit {
-    background-color:var(--hv-blue);
-    color:var(--white);
+.controls .newsbutton {
+    display: grid;
+    place-content: center;
+    width: 60%;
+    height: var(--length-md-medium);
+    font-weight: bold;
+    border: none;
+    background-color: var(--hv-neutral);
+    border-radius: var(--length-sm-small);
+    filter: drop-shadow(var(--shadow-standard));
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
 }
 
+.controls .newsbutton.submit {
+    background-color: var(--news-blue);
+    color: var(--white);
+}
 
+.controls .newsbutton.delete {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.controls .newsbutton:active {
+    color: var(--white);
+    background-color: var(--hv-blue-dark);
+}
+
+.separator{
+    height: 1px;
+    width:60%;
+    background-color: var(--hv-neutral);
+}
 
 /* chart stuff*/
 .chart-container {
     display: flex;
     flex-direction: column;
-    background-color: whitesmoke;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--hv-neutral-light);
     max-width: 1280px;
-    padding: 2rem;
+    min-height: 400px;
+    min-width: 500px;
+    padding: 1rem;
     overflow: hidden;
 }
 
 .chart {
-    background-color: white;
+    flex-grow:1;
+    background-color: var(--white);
     transition: all 0.3s ease-in-out;
+
 }
 
 .hide {
@@ -197,5 +212,6 @@ th {
     margin: 8px;
     gap: 4px;
     align-items: center;
+    justify-content: end;
     font-size: large;
 }

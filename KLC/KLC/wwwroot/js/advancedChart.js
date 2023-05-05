@@ -6,7 +6,7 @@ import data from "/js/data.js";
 const canvas = document.querySelector("#advanced-chart");
 
 //sätt höjd bredd på canvas
-canvas.width = 800;
+canvas.width = 500;
 canvas.height = 400;
 
 //hämta canvas kontext
