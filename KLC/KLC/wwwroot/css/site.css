@@ -214,3 +214,17 @@ th {
     justify-content: end;
     font-size: large;
 }
+
+/*Patient index stuff*/
+.patient-index-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--length-sm-large);
+    text-align:left;
+}
+
+
+
+
+

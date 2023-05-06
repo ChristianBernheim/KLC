@@ -2,8 +2,19 @@
     text-align:left;
 }
 
-.members{
+    .iteration > .separator {
+        height: 1px;
+        width: 60%;
+        background-color: var(--hv-neutral);
+        margin: var(--length-sm-large) 0px var(--length-sm-large) 0px;
+    }
 
+.iteration h2 {
+    font-size:1.3em
+}
+
+.members {
+    perspective: 1080px;
 }
 
 .member p, .member h1, .member h2 {
@@ -12,27 +23,47 @@
 
 
 
-.member h1 {
-    font-size:1em;
+.member h3 {
+    font-size: 1em;
 }
-.member h2 {
+.member h4 {
+    color: var(--black);
     font-size: 0.9em;
 }
 .member p {
     font-size: 0.8em;
+    
+}
+
+.icons {
+    color:var(--news-blue);
 }
 
 .member {
     text-align: right;
-    background-color: var(--white);
-    color:var(--black);
-    padding:var(--length-sm-medium);
+    color: var(--black);
+    padding: var(--length-sm-medium);
+    background: var(--white);
+    transform-style: preserve-3d;
+    transform: rotateY(-2deg);
+    transition:all 0.5s ease-in-out;
+    
+    
 }
 
-.member:nth-child(2n) {
-    text-align:left;
-    background-color:var(--hv-neutral-light);
-}
+    .member:nth-child(2n) {
+        text-align: left;
+        background: var(--hv-neutral-light);
+        transform-style: preserve-3d;
+        transform: rotateY(2deg);
+    }
+
+        .member:hover {
+            transform: rotateX(-5deg);
+        }
+
+    
+
 
 
 
