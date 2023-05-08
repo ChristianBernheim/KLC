@@ -74,6 +74,18 @@ th {
     background-color: yellow;
 }
 
+/* navbar hover effect*/
+.navbar-nav .nav-link:hover {
+    background-color: lightgrey;
+    color: #EEEDEA;
+}
+/* navbar text style*/
+.nav-item {
+    font-family: 'Lato Bold', sans-serif;
+    font-size: 20px;
+    color: #EEEDEA;
+    padding: 10px;
+}
 
 
 /*general style*/
@@ -197,7 +209,7 @@ th {
     background-color: var(--white);
     max-height: 600px;
     max-width: 800px;
-    transition:all 0.2s ease-in-out
+    transition:all 0.3s ease-in-out;
 }
 
 .hide {
@@ -214,3 +226,17 @@ th {
     justify-content: end;
     font-size: large;
 }
+
+/*Patient index stuff*/
+.patient-index-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    gap: var(--length-sm-large);
+    text-align:left;
+}
+
+
+
+
+
