@@ -74,6 +74,18 @@ th {
     background-color: yellow;
 }
 
+/* navbar hover effect*/
+.navbar-nav .nav-link:hover {
+    background-color: lightgrey;
+    color: #EEEDEA;
+}
+/* navbar text style*/
+.nav-item {
+    font-family: 'Lato Bold', sans-serif;
+    font-size: 20px;
+    color: #EEEDEA;
+    padding: 10px;
+}
 
 
 /*general style*/
