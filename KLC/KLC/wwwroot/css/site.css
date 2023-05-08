@@ -197,6 +197,7 @@ th {
     background-color: var(--white);
     max-height: 600px;
     max-width: 800px;
+    transition:all 0.2s ease-in-out
 }
 
 .hide {
