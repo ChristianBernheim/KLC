@@ -76,15 +76,18 @@ th {
 
 /* navbar hover effect*/
 .navbar-nav .nav-link:hover {
-    background-color: lightgrey;
-    color: #EEEDEA;
+    background-color: var(--hv-neutral-light);
+    /*verkar inte fungera ?*/
+    color: var(--white);
 }
+
 /* navbar text style*/
 .nav-item {
-    font-family: 'Lato Bold', sans-serif;
-    font-size: 20px;
-    color: #EEEDEA;
-    padding: 10px;
+    font-family: var(--title-font);
+    font-size: 1.3em;
+    padding: var(--length-sm-large);
+    /*verkar inte fungera ?*/
+    color: var(--white);
 }
 
 
