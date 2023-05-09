@@ -35,6 +35,7 @@ const NewsCalcToArray = (array) => {
     //inner result
     let result = { sum: 0, action: 0 };
     let threeFlag = false;
+
     //keys that we are interested in
     const keys = [
       "andningsfrekvens",
@@ -44,22 +45,22 @@ const NewsCalcToArray = (array) => {
       "syrgas",
       "systolisktblodtryck",
       "temperatur",
-    ];
+      ];
+
     //make a map of the keys
-    element = keys.map((key) => element[key]);
+      element = keys.map((key) => element[key]);
+    //foreach element in keys map
     element.forEach((value) => {
-      //add to sum
-      result.sum += value;
-      //if any value is three flip flag
-      if (value == 3) {
+    //add to sum
+    result.sum += Math.abs(value);
+    //if any value is three flip flag
+        if (Math.abs(value) == 3) {
         threeFlag = true;
       }
     });
     result.action = ActionCalc(result.sum, threeFlag);
-    console.log(result);
     results.push(result);
   });
-
   return results;
 };
 
