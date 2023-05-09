@@ -4,7 +4,6 @@ import srcdata from "./data.js";
 
 //hämta html element
 const canvas = document.querySelector("#simple-chart");
-const container = document.querySelector(".chart-container");
 console.log("hello");
 
 canvas.width = 500;
