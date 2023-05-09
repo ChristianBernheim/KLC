@@ -212,7 +212,7 @@ th {
     background-color: var(--white);
     max-height: 600px;
     max-width: 800px;
-    transition:all 0.3s ease-in-out;
+    transition:opacity 0.3s ease-in-out;
 }
 
 .hide {
