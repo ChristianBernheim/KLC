@@ -75,17 +75,16 @@ namespace KLC.Controllers
         public async Task<IActionResult> Results(IFormCollection collection)
         {
             //Får inte uppförslag i share tydligen...
-            //glöm inte sätta patientid <3
-                MatningNews2 model = new MatningNews2();
-           
-                model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
-                //model.
-                //model.
-                //model.
-                //model.
-                //model.
-                //model.
-                //model.
+            MatningNews2 model = new MatningNews2();
+            model.PatientId = int.Parse(collection[""]);
+            model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
+            model.SyreMattnad = int.Parse(collection["syremättnad"]);
+            model.TillfordSyrgas = int.Parse(collection["syrgas"]);
+            model.SystolisktBlodtryck = int.Parse(collection["systolisktblodtryck"]);
+            model.Pulsfrekvens = int.Parse(collection["pulsfrekvens"]);
+            model.Medvetandegrad = int.Parse(collection["medvetandegrad"]);
+            model.Temperatur = int.Parse(collection["temperatur"]);
+            model.TidForMatning = DateTime.Now;
 
              //postar till mätningar
              using (HttpClient client = new HttpClient())

@@ -130,6 +130,7 @@
 
 		<button class="newsbutton submit" type="submit" onclick="openPopup()">Skicka in</button>
 		@* onclick="openPopup()"*@
+		<div class="overlay"></div>
 	<div class="popup" id="popup">
 			<button class="closepopupwindow" onclick="closePopup()">X</button>
 			
@@ -159,16 +160,24 @@
     }
 	});
 	</script>
+	<script>
+		// Get the popup and overlay elements
+		let popup = document.getElementById("popup");
+		let overlay = document.querySelector(".overlay");
 
-	<script> let popup = document.getElementById("popup");
-	function openPopup(){
-
-	popup.classList.add("openPopup")
-
-	}
-		function closePopup() {
-			popup.classList.remove("openPopup")
+		function openPopup() {
+			// Show the popup and overlay
+			popup.classList.add("openPopup");
+			overlay.style.display = "block";
 		}
+
+		function closePopup() {
+			// Hide the popup and overlay
+			popup.classList.remove("openPopup");
+			overlay.style.display = "none";
+		}
+
+
 	</script>
 
 </div>
