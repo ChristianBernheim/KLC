@@ -1,7 +1,7 @@
 ﻿using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Text.Json;
 
 namespace KLC.Controllers
 {
@@ -46,8 +46,7 @@ namespace KLC.Controllers
                 if (response.IsSuccessStatusCode)
                 {
                     string content = await response.Content.ReadAsStringAsync();
-                    model.Patient = JsonSerializer.Deserialize<Patient>(content,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                    model.Patient = JsonConvert.DeserializeObject<Patient>(content);
                 }
 
                 else
@@ -83,9 +82,7 @@ namespace KLC.Controllers
         {
             //Får inte uppförslag i share tydligen...
                 MatningNews2 model = new MatningNews2();
-           //im going eating 
-           //hörlurarna dog
-           //hör
+           
                 model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
                 model.
                 model.
@@ -98,24 +95,15 @@ namespace KLC.Controllers
              using (HttpClient client = new HttpClient())
                 {
                 client.BaseAddress = new Uri(_baseUrl);
-                HttpResponseMessage response = await client.GetAsync("patients/" + currentPatientId);
+                //turn model into json string
+                var json = JsonConvert.SerializeObject(model);  
+                //turn json string into stringcontent
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                //post content to endpoint
+                var response = await client.PostAsync("MatningNews2", content);
 
-                if (response.IsSuccessStatusCode)
-                {
-                    string content = await response.Content.ReadAsStringAsync();
-                    model.Patient = JsonSerializer.Deserialize<Patient>(content,
-                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                return RedirectToAction("Results","Patient");
                 }
-
-                else
-                {
-                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
-
-                }
-                return View(model);
-                }
-
-            return View();
         }
 
         public IActionResult Statistics()
