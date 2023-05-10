@@ -58,7 +58,7 @@ tr:nth-child(2n) .column0 {
 
 tr:nth-child(2n) .column1 {
     background-color: var(--news-yellow-light);
-    ;
+    
 }
 
 .column2 {

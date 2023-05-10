@@ -1,0 +1,117 @@
+﻿@using KLC_API.Models
+@model PatientViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+<link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
+<div class="text-center">
+    @*TODO: Patientindex skall vara här*@
+	<div class="content-wrapper">
+		<div class="title-section">
+			<h1>Tidigare Värden</h1>
+		</div>
+		<div class="history">
+			@*tabell för patientindex*@
+		<table>
+		<tr>
+			<th>Tidpunkt</th>
+			<th>Andningsfrekvens</th>
+			<th>Syremättnad</th>
+			<th>Tillförd syrgas</th>
+			<th>Systoliskt blodtryck</th>
+			<th>Pulsfrekvens</th>
+			<th>Medvetandegrad</th>
+			<th>Temperatur</th>
+		</tr>
+		@*Visa tabell med värden istället för news poäng
+			använder index för att visa estetiskt värde snarare än det uppmätta newsvärdet.
+			3 = 0 på news skalan, +värdet på mätningen som går från -3 till +3
+		*@
+		@for (var i = 0; i < Model.Matningar.Count(); i++)
+		{
+					MatningNews2 element = @Model.Matningar[i];
+					string empty = "--";
+
+			<tr>
+				<td>@element.TidForMatning</td>
+						@if (element.Andningsfrekvens == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+						<td>@Model.Varden.Andningsfrekvens[(3+(int)element.Andningsfrekvens)]</td>
+						}
+						
+				@* if using syremättnad2, dumt sätt att skilja på vilken som valdes är att inputs för sm2
+					går från 7 till 13: 7-10 = -3
+				*@
+						@if(element.SyreMattnad == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							@if(element.SyreMattnad >= 7){
+							<td>@Model.Varden.SyreMattnad2[3+(int)element.SyreMattnad-10]<p>syrgas 2</p></td>
+							}
+							else{
+							<td>@Model.Varden.SyreMattnad1[3+(int)element.SyreMattnad]</td>
+							}
+						}
+
+						@if(element.TillfordSyrgas == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.TillfordSyrgas[3+(int)element.TillfordSyrgas]</td>
+						}
+
+						@if(element.SystolisktBlodtryck == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.SystolisktBlodtryck[3+(int)element.SystolisktBlodtryck]</td>
+						}
+
+						@if(element.Pulsfrekvens == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Pulsfrekvens[3+(int)element.Pulsfrekvens]</td>
+						}
+
+						@if(element.Medvetandegrad == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Medvetandegrad[3+(int)element.Medvetandegrad]</td>
+						}
+
+						@if(element.Temperatur == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Temperatur[3+(int)element.Temperatur]</td>
+						}
+			</tr>
+		}
+		</table>
+		</div>
+	</div>
+	<script>
+
+	</script>
+
+</div>
+

@@ -238,6 +238,14 @@ th {
     gap: var(--length-sm-large);
     text-align:left;
 }
+/*earlier measurements*/
+.history {
+    display: flex;
+    flex-direction: column;
+    gap: var(--length-sm-large);
+    text-align: left;
+    overflow-x:scroll;
+}
 
 
 
