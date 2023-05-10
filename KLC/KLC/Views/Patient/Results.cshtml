@@ -73,6 +73,7 @@
 			använder index för att visa estetiskt värde snarare än det uppmätta newsvärdet.
 			3 = 0 på news skalan, +värdet på mätningen som går från -3 till +3
 		*@
+		@if(Model.Matningar.Count() >=1){
 		@for (var i = Model.Matningar.Count()-1; i < Model.Matningar.Count(); i++)
 		{
 					MatningNews2 element = @Model.Matningar[i];
@@ -154,6 +155,7 @@
 							<td>@Model.Varden.Temperatur[3+(int)element.Temperatur]</td>
 						}
 			</tr>
+		}
 		}
 		</table>
 		
