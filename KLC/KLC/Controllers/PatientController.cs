@@ -17,6 +17,47 @@ namespace KLC.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        public async Task<ActionResult> Index()
+        {
+            int currentPatientId;
+            //om det finns user i session,sätt currpatid till sessionsvärde
+            if (HttpContext.Session.GetString("currentPatientId") != null)
+            {
+                currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+
+            }
+            //redir till index om inget hittas
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            //RedirectToAction (string actionName, string controllerName);
+
+
+            PatientViewModel model = new PatientViewModel();
+            model.Patient = new Patient();
+
+            //hämta patientfrån API
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/" + currentPatientId);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonConvert.DeserializeObject<Patient>(content);
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+                return View(model);
+            }
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult> Index(int id)
         {
@@ -155,6 +196,7 @@ namespace KLC.Controllers
         {
             PatientViewModel model = new PatientViewModel();
             model.Patient = new Patient();
+            model.Matningar = new List<MatningNews2>();
 
             //hämta patientfrån API
             using (HttpClient client = new HttpClient())
@@ -173,6 +215,22 @@ namespace KLC.Controllers
                     ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
 
                 }
+
+                response = await client.GetAsync("MatningNews2/getAllFromPatient/" + HttpContext.Session.GetString("currentPatientId"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Matningar = JsonConvert.DeserializeObject<List<MatningNews2>>(content);
+                    model.Matningar.Reverse();
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+
             }
 
             return View(model);

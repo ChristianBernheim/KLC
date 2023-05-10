@@ -131,17 +131,17 @@
 		<button class="newsbutton submit" type="submit" onclick="openPopup()">Skicka in</button>
 		@* onclick="openPopup()"*@
 		<div class="overlay"></div>
-	<div class="popup" id="popup">
-			<button class="closepopupwindow" onclick="closePopup()">X</button>
-			
-
+		<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closePopup()">X</button>		
 		<h2>Är du säker på att du vill skicka in?</h2> 
 		@*<div class="Något För att lägga knappar brevid varandra centrerat?">
 		<button>onclick="closePopup()">Nej</button> *@
 		<button type="submit" form="newsform" onclick="closePopup()">Ja</button>
 		@*</div>*@
 	</div>
-	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
+	<div class="separator"></div>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa Åtgärd</a>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Graf</a>
 	</div>
 	
 

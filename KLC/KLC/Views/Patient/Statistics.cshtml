@@ -12,35 +12,135 @@
 		<div class="title-section">
 			<div class="patient-wrapper">
 				<div class="white-on-blue">
-					<p>Fyll i värden för patient @(Model.Patient.Id):</p>
+					<p>Historik för patient @(Model.Patient.Id):</p>
 				</div>
 				<div>
 					<p>@Model.Patient.Personnummer</p>
 				</div>
 			</div>
 			<h1>Historik</h1>	
-			    <span></span>
             <div class="options-container">
-                <label for="toggle">Avancerad graf</label>
-            <label class="switch">
+                <label for="toggle">Visa graf</label>
+				<label class="switch">
                 <input type="checkbox" name="toggle" id="toggle-chart" />
                 <span class="slider round"></span>
             </label>
             
             </div>
 	    </div>
-        <div class="chart-container">
+        <div class="chart-container hide">
             <canvas class="chart top" id="simple-chart"></canvas>
-            <canvas class="chart bot hide" id="advanced-chart"></canvas>
         </div>
+		<div class="history">
+		<table>
+		<tr>
+			<th>Tidpunkt</th>
+			<th>Andningsfrekvens</th>
+			<th>Syremättnad</th>
+			<th>Tillförd syrgas</th>
+			<th>Systoliskt blodtryck</th>
+			<th>Pulsfrekvens</th>
+			<th>Medvetandegrad</th>
+			<th>Temperatur</th>
+		</tr>
+		@*Visa tabell med värden istället för news poäng
+			använder index för att visa estetiskt värde snarare än det uppmätta newsvärdet.
+			3 = 0 på news skalan, +värdet på mätningen som går från -3 till +3
+		*@
+		@for (var i = 0; i < Model.Matningar.Count(); i++)
+		{
+					MatningNews2 element = @Model.Matningar[i];
+					string empty = "--";
+
+			<tr>
+				<td>
+					@element.TidForMatning.ToShortDateString()
+					@element.TidForMatning.ToShortTimeString()
+				</td>
+						@if (element.Andningsfrekvens == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+						<td>@Model.Varden.Andningsfrekvens[(3+(int)element.Andningsfrekvens)]</td>
+						}
+						
+				@* if using syremättnad2, dumt sätt att skilja på vilken som valdes är att inputs för sm2
+					går från 7 till 13: 7-10 = -3
+				*@
+						@if(element.SyreMattnad == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							@if(element.SyreMattnad >= 7){
+							<td>@Model.Varden.SyreMattnad2[3+(int)element.SyreMattnad-10]<p>syrgas 2</p></td>
+							}
+							else{
+							<td>@Model.Varden.SyreMattnad1[3+(int)element.SyreMattnad]</td>
+							}
+						}
+
+						@if(element.TillfordSyrgas == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.TillfordSyrgas[3+(int)element.TillfordSyrgas]</td>
+						}
+
+						@if(element.SystolisktBlodtryck == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.SystolisktBlodtryck[3+(int)element.SystolisktBlodtryck]</td>
+						}
+
+						@if(element.Pulsfrekvens == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Pulsfrekvens[3+(int)element.Pulsfrekvens]</td>
+						}
+
+						@if(element.Medvetandegrad == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Medvetandegrad[3+(int)element.Medvetandegrad]</td>
+						}
+
+						@if(element.Temperatur == null)
+						{
+							<td>@empty</td>
+						}
+						else
+						{
+							<td>@Model.Varden.Temperatur[3+(int)element.Temperatur]</td>
+						}
+			</tr>
+		}
+		</table>
+		
+		</div>
    </div>
 
     <div class="controls">
 	    <a  class="newsbutton submit" asp-controller="Patient" asp-action="Index">Ny mätning</a>
         <div class="separator"></div>
+		<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa åtgärd</a>
+		<div class="separator"></div>
 
-
-        <button class="newsbutton" type="submit" onclick="openPopup()">Radera senaste mätning</button>
+        <button class="newsbutton delete" type="submit" onclick="openPopup()">Radera senaste mätning</button>
 		@* onclick="openPopup()"*@
 		<div class="overlay"></div>
 	<div class="popup" id="popup">
@@ -63,7 +163,7 @@
 	</div>
     
     
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.js"></script>
     <script type="module">
 
         // importera simpel och avancerad graf
@@ -73,13 +173,13 @@
 
         //hämta html element
         const toggle = document.querySelector("#toggle-chart");
-        const simple = document.querySelector("#simple-chart");
-        const advanced = document.querySelector("#advanced-chart");
+        const chart = document.querySelector(".chart-container");
+		const table = document.querySelector(".history");
 
         //toggla mellan charts
         toggle.addEventListener("input", () => {
-            simple.classList.toggle("hide");
-            advanced.classList.toggle("hide");
+           chart.classList.toggle("hide");
+		   table.classList.toggle("hide");
         });
 
     </script>
@@ -99,8 +199,6 @@
 			popup.classList.remove("openPopup");
 			overlay.style.display = "none";
 		}
-
-
 	</script>
 
 </div>

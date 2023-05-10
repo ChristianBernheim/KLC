@@ -27,44 +27,47 @@ const NewsCalcToArray = (array) => {
   //store our results
   let results = [];
 
-  array.forEach((element) => {
-    //inner result
-    let result = { sum: 0, action: 0, time:0};
-    let threeFlag = false;
+    array.forEach((item) => {
+        //inner result
+        let result = { sum: 0, action: 0, time: 0 };
+        let threeFlag = false;
 
-    //keys that we are interested in
-    const keys = [
-      "andningsfrekvens",
-      "medvetandegrad",
-      "pulsfrekvens",
-      "syreMattnad",
-      "tillfordSyrgas",
-      "systolisktBlodtryck",
-      "temperatur",
-      ];
+        //keys that we are interested in
+        const keys = [
+            "andningsfrekvens",
+            "medvetandegrad",
+            "pulsfrekvens",
+            "syreMattnad",
+            "tillfordSyrgas",
+            "systolisktBlodtryck",
+            "temperatur",
+            "tidForMatning"
+        ];
 
-    //make a map of the keys
-      element = keys.map((key) => element[key]);
-    //foreach element in keys map
-      element.forEach((value) => {
-          
-          if (value != null) {
-              console.log(value);
-              //if syrgas2
-              if (value >= 7) {
-                  value = value - 10;
-                  console.log(value);
-              }
-              //add to sum
-              result.sum += Math.abs(value);
-              //if any value is three flip flag
-              if (Math.abs(value) == 3) {
-                  threeFlag = true;
-              }
-          }
-        });
-      result.action = ActionCalc(result.sum, threeFlag);
-      result.time = element.tidForMatning;
+        //make a map of the keys
+        item = keys.map((key) => item[key]);
+        //foreach value in keys map, except last value (time)
+        for (let i = 0; i < item.length - 1; i++) {
+            let value = item[i];
+            if (value != null) {
+                //if syrgas2
+                if (value >= 7) {
+                    value = value - 10;
+                    console.log(value);
+                }
+                //add to sum
+                result.sum += Math.abs(value);
+                //if any value is three flip flag
+                if (Math.abs(value) == 3) {
+                    threeFlag = true;
+                }
+            }
+        };
+        result.action = ActionCalc(result.sum, threeFlag);
+        let date = new Date(Date.parse(item[item.length - 1]));
+
+        result.time = date.toUTCString().split(",")[0] + " " + date.getHours() + ":" + date.getMinutes();
+        
         results.push(result);
   });
   return results;
@@ -74,7 +77,6 @@ const NewsCalcToArray = (array) => {
 const mChart = async (id) => {
 const response = await fetch("https://informatik13.ei.hv.se/KLCAPI/api/MatningNews2/GetAllFromPatient/" + id);
 const srcdata = await response.json();
-console.log(srcdata);
 let mdata = NewsCalcToArray(srcdata);
 
 //värden som kommer återanvändas

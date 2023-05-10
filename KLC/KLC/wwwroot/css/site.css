@@ -205,16 +205,16 @@ th {
     align-items: center;
     background-color: var(--hv-neutral-light);
     max-width: 1280px;
- 
     padding: 1rem;
     overflow: hidden;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .chart {
     background-color: var(--white);
     max-height: 600px;
     max-width: 800px;
-    transition:opacity 0.3s ease-in-out;
+    
 }
 
 .hide {
@@ -246,7 +246,9 @@ th {
     flex-direction: column;
     gap: var(--length-sm-large);
     text-align: left;
-    overflow-x:scroll;
+    overflow-x: scroll;
+    user-select: none;
+    transition: opacity 0.3s ease-in-out;
 }
 
 /*Popup/lightbox stuff*/
