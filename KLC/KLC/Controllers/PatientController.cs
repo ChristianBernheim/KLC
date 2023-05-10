@@ -1,13 +1,66 @@
 ﻿using KLC.Models;
-using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Text.Json;
 
 namespace KLC.Controllers
 {
-
+    [Route("[controller]")]
     public class PatientController : Controller
     {
+
+        string _baseUrl = "https://informatik13.ei.hv.se/klcapi/api/";
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Index(int id)
+        {
+            //sätter patientId till session
+            if(id != 0) { 
+            HttpContext.Session.SetString("currentPatientId", id.ToString());
+                
+            }
+
+            int currentPatientId;
+            //om det finns user i session,sätt currpatid till sessionsvärde
+            if (HttpContext.Session.GetString("currentPatientId") != null)
+			{
+                currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+                
+            }
+            //redir till index om inget hittas
+			else
+			{
+                return RedirectToAction("Index", "Home");
+			}
+            //RedirectToAction (string actionName, string controllerName);
+            
+            
+            PatientViewModel model = new PatientViewModel();
+            model.Patient = new Patient();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/"+currentPatientId);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonSerializer.Deserialize<Patient>(content,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+                return View(model);
+            }
+        }
+    //****************************************************************//
+
+
         private readonly ILogger<PatientController> _logger;
 
         public PatientController(ILogger<PatientController> logger)
@@ -15,13 +68,52 @@ namespace KLC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //   return View();
+        //}
+        [HttpGet]
+        public IActionResult Results()
         {
             return View();
         }
-        public IActionResult Results()
-        {
 
+        [HttpPost("newsform")]
+        public async Task<IActionResult> Results(IFormCollection collection)
+        {
+            //Får inte uppförslag i share tydligen...
+                MatningNews2 model = new MatningNews2();
+           //im going eating 
+           //hörlurarna dog
+           //hör
+                model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
+                model.
+                model.
+                model.
+                model.
+                model.
+                model.
+                model.
+
+             using (HttpClient client = new HttpClient())
+                {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/" + currentPatientId);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonSerializer.Deserialize<Patient>(content,
+                    new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+                return View(model);
+                }
 
             return View();
         }
