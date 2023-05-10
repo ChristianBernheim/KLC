@@ -7,5 +7,7 @@
         public List<MatningNews2> Matningar { get; set; }
 
         public Varden Varden = new Varden();
+
+        public int Action = 0;
     }
 }
