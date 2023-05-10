@@ -111,6 +111,7 @@ namespace KLC.Controllers
         {
             PatientViewModel model = new PatientViewModel();
             model.Patient = new Patient();
+            model.Matningar = new List<MatningNews2>();
 
             //hämta patientfrån API
             using (HttpClient client = new HttpClient())
@@ -129,6 +130,22 @@ namespace KLC.Controllers
                     ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
 
                 }
+
+                response = await client.GetAsync("MatningNews2/getAllFromPatient/" + HttpContext.Session.GetString("currentPatientId"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Matningar = JsonConvert.DeserializeObject<List<MatningNews2>>(content);
+                    model.Action = Util.GetNEWSAction(model.Matningar[model.Matningar.Count() - 1]);
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+
             }
 
             return View(model);
@@ -291,9 +308,7 @@ namespace KLC.Controllers
             return Redirect("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        
 
-                [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

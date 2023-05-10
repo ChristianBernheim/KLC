@@ -10,6 +10,8 @@
     --hv-neutral: #c4bfb6;
     --hv-neutral-light: #eeedea;
     /*News färger*/
+    --news-green: #caecca;
+    --news-green-light: #def7ec;
     --news-blue: #4874b5;
     --news-red: #ec8c83;
     --news-red-light: #f0b8b4;
@@ -94,7 +96,7 @@ th {
 
 
 /*general style*/
-.content-wrapper{
+.content-wrapper {
     background-color: var(--white);
     padding: var(--length-sm-large);
     border-radius: var(--length-sm-small);
