@@ -1,7 +1,4 @@
 
-//importera data från annan .js fil (istället för api)
-import srcdata from "./data.js";
-
 //hämta html element
 const canvas = document.querySelector("#simple-chart");
 console.log("hello");
@@ -30,9 +27,9 @@ const NewsCalcToArray = (array) => {
   //store our results
   let results = [];
 
-  srcdata.forEach((element) => {
+  array.forEach((element) => {
     //inner result
-    let result = { sum: 0, action: 0 };
+    let result = { sum: 0, action: 0, time:0};
     let threeFlag = false;
 
     //keys that we are interested in
@@ -40,9 +37,9 @@ const NewsCalcToArray = (array) => {
       "andningsfrekvens",
       "medvetandegrad",
       "pulsfrekvens",
-      "syremättnad",
-      "syrgas",
-      "systolisktblodtryck",
+      "syreMattnad",
+      "tillfordSyrgas",
+      "systolisktBlodtryck",
       "temperatur",
       ];
 
@@ -50,34 +47,35 @@ const NewsCalcToArray = (array) => {
       element = keys.map((key) => element[key]);
     //foreach element in keys map
       element.forEach((value) => {
-    //if syrgas2
-        if (value >= 7) {
-            value = value - 10;
-            console.log(value);
-        }
-    //add to sum
-    result.sum += Math.abs(value);
-    //if any value is three flip flag
-        if (Math.abs(value) == 3) {
-        threeFlag = true;
-      }
-    });
-    result.action = ActionCalc(result.sum, threeFlag);
-    results.push(result);
+          
+          if (value != null) {
+              console.log(value);
+              //if syrgas2
+              if (value >= 7) {
+                  value = value - 10;
+                  console.log(value);
+              }
+              //add to sum
+              result.sum += Math.abs(value);
+              //if any value is three flip flag
+              if (Math.abs(value) == 3) {
+                  threeFlag = true;
+              }
+          }
+        });
+      result.action = ActionCalc(result.sum, threeFlag);
+      result.time = element.tidForMatning;
+        results.push(result);
   });
   return results;
 };
 
-const data = NewsCalcToArray(srcdata);
-
-//funktion som returnerar array med "mätning1, mätning2" etc.
-const counts = () => {
-  let countArray = [];
-  for (let index = 1; index < data.length + 1; index++) {
-    countArray.push("Mätning " + index);
-  }
-  return countArray;
-};
+//importera data från annan .js fil (istället för api)
+const mChart = async (id) => {
+const response = await fetch("https://informatik13.ei.hv.se/KLCAPI/api/MatningNews2/GetAllFromPatient/" + id);
+const srcdata = await response.json();
+console.log(srcdata);
+let mdata = NewsCalcToArray(srcdata);
 
 //värden som kommer återanvändas
 let mBorderwidth = 8;
@@ -85,16 +83,16 @@ let mHoverBorderwidth = 30;
 let mTension = 0.2;
 
 //skapa chart
-let mChart = new Chart(ctx, {
+  new Chart(ctx, {
   type: "line",
   data: {
-    //använder counts funktionen ovan
-    labels: counts(),
+      //använder counts funktionen ovan
+      labels: mdata.map((value) => value.time),
     datasets: [
       {
         label: "NEWS",
-        //hämtar alla värden ur data arrayen, för key "andningsfrekvens"
-        data: data.map((value) => value.action),
+        //hämtar alla värden ur data arrayen
+        data: mdata.map((value) => value.action),
         borderColor: "#488f31",
         backgroundColor: "#488f31",
         borderWidth: mBorderwidth,
@@ -129,6 +127,7 @@ let mChart = new Chart(ctx, {
     },
   },
 });
+}
 
 
 

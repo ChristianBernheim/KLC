@@ -1,4 +1,4 @@
-﻿using KLC.Models;
+using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -44,7 +44,7 @@ namespace KLC.Controllers
             PatientViewModel model = new PatientViewModel();
             model.Patient = new Patient();
 
-            //hämta alla patienter från API
+            //hämta patientfrån API
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_baseUrl);
@@ -66,24 +66,73 @@ namespace KLC.Controllers
         }
 
         [HttpGet("Results")]
-        public IActionResult Results()
+        public async Task<IActionResult> Results()
         {
-            return View();
+            PatientViewModel model = new PatientViewModel();
+            model.Patient = new Patient();
+
+            //hämta patientfrån API
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/" + HttpContext.Session.GetString("currentPatientId"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonConvert.DeserializeObject<Patient>(content);
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+            }
+
+            return View(model);
         }
 
         [HttpPost("Results")]
         public async Task<IActionResult> Results(IFormCollection collection)
         {
-            //Får inte uppförslag i share tydligen...
+            
             MatningNews2 model = new MatningNews2();
-            model.PatientId = int.Parse(collection[""]);
+            model.PatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+            //Kollar så vi inte använder parse på null värden.
+            if (collection["andningsfrekvens"].ToString() != "") { 
             model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
-            model.SyreMattnad = int.Parse(collection["syremättnad"]);
-            model.TillfordSyrgas = int.Parse(collection["syrgas"]);
-            model.SystolisktBlodtryck = int.Parse(collection["systolisktblodtryck"]);
-            model.Pulsfrekvens = int.Parse(collection["pulsfrekvens"]);
-            model.Medvetandegrad = int.Parse(collection["medvetandegrad"]);
-            model.Temperatur = int.Parse(collection["temperatur"]);
+            }
+            var test = collection["syremättnad"].ToString();
+
+            if (collection["syremättnad"].ToString() != "")
+            {
+                model.SyreMattnad = int.Parse(collection["syremättnad"]);
+            }
+            if (collection["syrgas"].ToString() != "")
+            {
+                model.TillfordSyrgas = int.Parse(collection["syrgas"]);
+            }
+           
+            if (collection["systolisktblodtryck"].ToString() != "")
+            {
+                model.SystolisktBlodtryck = int.Parse(collection["systolisktblodtryck"]);
+            }
+            if (collection["pulsfrekvens"].ToString() != "")
+            {
+                model.Pulsfrekvens = int.Parse(collection["pulsfrekvens"]);
+            }
+            
+            if (collection["medvetandegrad"].ToString() != "")
+            {
+                model.Medvetandegrad = int.Parse(collection["medvetandegrad"]);
+            }
+            
+            if (collection["temperatur"].ToString() != "")
+            {
+                model.Temperatur = int.Parse(collection["temperatur"]);
+            }
+            
             model.TidForMatning = DateTime.Now;
 
              //postar till mätningar
@@ -102,9 +151,31 @@ namespace KLC.Controllers
         }
 
         [HttpGet("Statistics")]
-        public IActionResult Statistics()
+        public async Task<IActionResult> Statistics()
         {
-            return View();
+            PatientViewModel model = new PatientViewModel();
+            model.Patient = new Patient();
+
+            //hämta patientfrån API
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/" + HttpContext.Session.GetString("currentPatientId"));
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonConvert.DeserializeObject<Patient>(content);
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+            }
+
+            return View(model);
         }
 
         [HttpGet("Test")]
@@ -162,6 +233,9 @@ namespace KLC.Controllers
             return Redirect("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        
+
+                [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

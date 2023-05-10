@@ -8,16 +8,17 @@
 <link rel="stylesheet" href="~/css/slider.css" asp-append-version="true" />
 <div class="text-center">
     @*Historik och graf*@
-   <div class="content-wrapper">
+	<div class="content-wrapper">
 		<div class="title-section">
-			    <div class="patient-wrapper">
-				    <div class="white-on-blue">
-					    <p>Historik för patient 4:</p>
-				    </div>
-				    <div>
-					    <p>1991-09-26-XXXX</p>
-				    </div>
-			    </div>
+			<div class="patient-wrapper">
+				<div class="white-on-blue">
+					<p>Fyll i värden för patient @(Model.Patient.Id):</p>
+				</div>
+				<div>
+					<p>@Model.Patient.Personnummer</p>
+				</div>
+			</div>
+			<h1>Historik</h1>	
 			    <span></span>
             <div class="options-container">
                 <label for="toggle">Avancerad graf</label>
@@ -67,7 +68,8 @@
 
         // importera simpel och avancerad graf
         import  simpleChart  from "/js/simpleChart.js";
-        import  advancedChart  from "/js/advancedChart.js";
+
+		simpleChart(@Model.Patient.Id);
 
         //hämta html element
         const toggle = document.querySelector("#toggle-chart");
