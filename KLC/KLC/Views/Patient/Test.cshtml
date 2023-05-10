@@ -5,13 +5,12 @@
 }
 <link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
 <div class="text-center">
-    @*TODO: Patientindex skall vara här*@
+    @*Test för det åsa ville ha, funkar i guess*@
 	<div class="content-wrapper">
 		<div class="title-section">
 			<h1>Tidigare Värden</h1>
 		</div>
 		<div class="history">
-			@*tabell för patientindex*@
 		<table>
 		<tr>
 			<th>Tidpunkt</th>
@@ -33,7 +32,10 @@
 					string empty = "--";
 
 			<tr>
-				<td>@element.TidForMatning</td>
+				<td>
+					@element.TidForMatning.ToShortDateString()
+					@element.TidForMatning.ToShortTimeString()
+				</td>
 						@if (element.Andningsfrekvens == null)
 						{
 							<td>@empty</td>
