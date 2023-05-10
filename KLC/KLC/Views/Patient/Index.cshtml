@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css asp-append-version="true" />
 <div class="text-center">
     @*Tabell för inmatning news*@
 	<div class="content-wrapper">
@@ -50,13 +51,13 @@
 			</tr>
 			<tr>
 				<th>Syremättnad 2*</th>
-				<td class="column3"><input type="radio" name="syremättnad" value="7" id="syrmb_1"/><label for="syrmb_1">≤83</label></td>
-				<td class="column2"><input type="radio" name="syremättnad" value="8" id="syrmb_2"/><label for="syrmb_2">84-85</label></td>
-				<td class="column1"><input type="radio" name="syremättnad" value="9" id="syrmb_3"/><label for="syrmb_3">86-87</label></td>
-				<td class="column0"><input type="radio" name="syremättnad" value="10" id="syrmb_4"/><label for="syrmb_4">88-92</label></td>
-				<td class="column1"><input type="radio" name="syremättnad" value="11" id="syrmb_5"/><label for="syrmb_5">93-94<p>med syrgas</p></label></td>
-				<td class="column2"><input type="radio" name="syremättnad" value="12" id="syrmb_6"/><label for="syrmb_6">95-96<p>med syrgas</p></label></td>
-				<td class="column3"><input type="radio" name="syremättnad" value="13" id="syrmb_7"/><label for="syrmb_7">≥97<p>med syrgas</p></label></td>
+				<td class="column3"><input type="radio" name="syremättnad" value="-3" id="syrmb_1"/><label for="syrmb_1">≤83</label></td>
+				<td class="column2"><input type="radio" name="syremättnad" value="-2" id="syrmb_2"/><label for="syrmb_2">84-85</label></td>
+				<td class="column1"><input type="radio" name="syremättnad" value="-1" id="syrmb_3"/><label for="syrmb_3">86-87</label></td>
+				<td class="column0"><input type="radio" name="syremättnad" value="0" id="syrmb_4"/><label for="syrmb_4">88-92</label></td>
+				<td class="column1"><input type="radio" name="syremättnad" value="1" id="syrmb_5"/><label for="syrmb_5">93-94<p>med syrgas</p></label></td>
+				<td class="column2"><input type="radio" name="syremättnad" value="2" id="syrmb_6"/><label for="syrmb_6">95-96<p>med syrgas</p></label></td>
+				<td class="column3"><input type="radio" name="syremättnad" value="3" id="syrmb_7"/><label for="syrmb_7">≥97<p>med syrgas</p></label></td>
 			</tr>
 			<tr>
 				<th>Tillförd syrgas</th>
@@ -119,12 +120,21 @@
 
 	</div>
 
+	
+
 	<div class="controls">
 		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
-	<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />
-	<div class="separator"></div>
-	<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa Åtgärdstrappa</a>
-	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa historik</a>
+	@*<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />*@
+
+		<button class="newsbutton submit" type="submit" onclick="openPopup()">Skicka in</button>
+		@* onclick="openPopup()"*@
+	<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closePopup()">X</button>
+
+		<h2>Är du säker på att du vill skicka in?</h2>
+			<button type="button" onclick="closePopup()">Ja</button>
+	</div>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
 	</div>
 	
 
@@ -142,6 +152,16 @@
         radio.addEventListener("click", override);
     }
 	});
+	</script>
+	<script> let popup = document.getElementById("popup");
+	function openPopup(){
+
+	popup.classList.add("openPopup")
+
+	}
+		function closePopup() {
+			popup.classList.remove("openPopup")
+		}
 	</script>
 
 </div>
