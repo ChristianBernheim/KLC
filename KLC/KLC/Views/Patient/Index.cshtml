@@ -2,6 +2,7 @@
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/site.css asp-append-version="true" />
 <div class="text-center">
     @*Tabell för inmatning news*@
 	<div class="content-wrapper">
@@ -119,9 +120,20 @@
 
 	</div>
 
+	
+
 	<div class="controls">
 		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
-	<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />
+	@*<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />*@
+
+		<button class="newsbutton submit" type="submit" onclick="openPopup()">Skicka in</button>
+		@* onclick="openPopup()"*@
+	<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closePopup()">X</button>
+
+		<h2>Är du säker på att du vill skicka in?</h2>
+			<button type="button" onclick="closePopup()">Ja</button>
+	</div>
 	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
 	</div>
 	
@@ -140,6 +152,16 @@
         radio.addEventListener("click", override);
     }
 	});
+	</script>
+	<script> let popup = document.getElementById("popup");
+	function openPopup(){
+
+	popup.classList.add("openPopup")
+
+	}
+		function closePopup() {
+			popup.classList.remove("openPopup")
+		}
 	</script>
 
 </div>
