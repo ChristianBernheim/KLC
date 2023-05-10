@@ -1,6 +1,7 @@
 ﻿using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace KLC.Controllers
 {
@@ -12,7 +13,7 @@ namespace KLC.Controllers
         {
             _logger = logger;
         }
-
+        
         public IActionResult Index()
         {
             return View();

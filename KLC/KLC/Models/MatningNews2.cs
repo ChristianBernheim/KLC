@@ -1,4 +1,4 @@
-﻿namespace KLC_API.Models
+﻿namespace KLC.Models
 {
     public class MatningNews2
     {
