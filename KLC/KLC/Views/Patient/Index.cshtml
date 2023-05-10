@@ -1,4 +1,6 @@
-﻿@{
+﻿@using KLC.Models
+@model PatientViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
@@ -9,15 +11,15 @@
 		<div class="title-section">
 			<div class="patient-wrapper">
 				<div class="white-on-blue">
-					<p>Fyll i värden för patient 4:</p>
+					<p>Fyll i värden för patient @(Model.Patient.Id):</p>
 				</div>
 				<div>
-					<p>1991-09-26-XXXX</p>
+					<p>@Model.Patient.Personnummer</p>
 				</div>
 			</div>
 			<h1>NEWS 2</h1>
 		</div>
-		<form id="newsform" asp-controller="results" method="post" asp-action="someaction">
+		<form id="newsform" name="newsform" asp-controller="Patient" method="post" asp-action="Results">
 		<table>
 			<tr>
 				<th>Fysiologiska parametrar</th>
@@ -131,9 +133,13 @@
 		<div class="overlay"></div>
 	<div class="popup" id="popup">
 			<button class="closepopupwindow" onclick="closePopup()">X</button>
+			
 
-		<h2>Är du säker på att du vill skicka in?</h2>
-			<button type="button" onclick="closePopup()">Ja</button>
+		<h2>Är du säker på att du vill skicka in?</h2> 
+		@*<div class="Något För att lägga knappar brevid varandra centrerat?">
+		<button>onclick="closePopup()">Nej</button> *@
+		<button type="button" type="submit" form="newsform" onclick="closePopup()">Ja</button>
+		@*</div>*@
 	</div>
 	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
 	</div>

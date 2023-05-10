@@ -1,13 +1,65 @@
 ﻿using KLC.Models;
-using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 
 namespace KLC.Controllers
 {
-
+    [Route("[controller]")]
     public class PatientController : Controller
     {
+
+        string _baseUrl = "https://informatik13.ei.hv.se/klcapi/api/";
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> Index(int id)
+        {
+            //sätter patientId till session
+            if(id != 0) { 
+            HttpContext.Session.SetString("currentPatientId", id.ToString());
+                
+            }
+
+            int currentPatientId;
+            //om det finns user i session,sätt currpatid till sessionsvärde
+            if (HttpContext.Session.GetString("currentPatientId") != null)
+			{
+                currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+                
+            }
+            //redir till index om inget hittas
+			else
+			{
+                return RedirectToAction("Index", "Home");
+			}
+            //RedirectToAction (string actionName, string controllerName);
+            
+            
+            PatientViewModel model = new PatientViewModel();
+            model.Patient = new Patient();
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.GetAsync("patients/"+currentPatientId);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string content = await response.Content.ReadAsStringAsync();
+                    model.Patient = JsonConvert.DeserializeObject<Patient>(content);
+                }
+
+                else
+                {
+                    ViewBag.Message = "Tyvärr något gick fel " + response.ReasonPhrase;
+
+                }
+                return View(model);
+            }
+        }
+    //****************************************************************//
+
+
         private readonly ILogger<PatientController> _logger;
 
         public PatientController(ILogger<PatientController> logger)
@@ -15,15 +67,43 @@ namespace KLC.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        //public IActionResult Index()
+        //{
+        //   return View();
+        //}
+        [HttpGet]
+        public IActionResult Results()
         {
             return View();
         }
-        public IActionResult Results()
+
+        [HttpPost("newsform")]
+        public async Task<IActionResult> Results(IFormCollection collection)
         {
+            //Får inte uppförslag i share tydligen...
+            MatningNews2 model = new MatningNews2();
+            model.PatientId = int.Parse(collection[""]);
+            model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
+            model.SyreMattnad = int.Parse(collection["syremättnad"]);
+            model.TillfordSyrgas = int.Parse(collection["syrgas"]);
+            model.SystolisktBlodtryck = int.Parse(collection["systolisktblodtryck"]);
+            model.Pulsfrekvens = int.Parse(collection["pulsfrekvens"]);
+            model.Medvetandegrad = int.Parse(collection["medvetandegrad"]);
+            model.Temperatur = int.Parse(collection["temperatur"]);
+            model.TidForMatning = DateTime.Now;
 
+            using (HttpClient client = new HttpClient())
+                {
+                client.BaseAddress = new Uri(_baseUrl);
+                //turn model into json string
+                var json = JsonConvert.SerializeObject(model);  
+                //turn json string into stringcontent
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                //post content to endpoint
+                var response = await client.PostAsync("MatningNews2", content);
 
-            return View();
+                return RedirectToAction("Results","Patient");
+                }
         }
 
         public IActionResult Statistics()
