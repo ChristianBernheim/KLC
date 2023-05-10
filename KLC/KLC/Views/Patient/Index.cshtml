@@ -122,7 +122,9 @@
 	<div class="controls">
 		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
 	<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />
-	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa Mätningshistorik</a>
+	<div class="separator"></div>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa Åtgärdstrappa</a>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa historik</a>
 	</div>
 	
 

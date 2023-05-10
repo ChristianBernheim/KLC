@@ -1,5 +1,5 @@
 ﻿using KLC.Models;
-using KLC_API.Models;
+using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 

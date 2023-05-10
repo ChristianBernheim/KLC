@@ -98,6 +98,13 @@
 		</tr>
 	</table>
 
+		<div class="controls">
+		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
+	<a  class="newsbutton submit" asp-controller="Patient" asp-action="Index">Ny mätning</a>
+	<div class="separator"></div>
+	<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Visa historik</a>
+	</div>
+
 	<script>
 	//override för mousedown, annars fungerar inte select/deselect i tabellen.
 	document.addEventListener("mousedown", (e) => {
