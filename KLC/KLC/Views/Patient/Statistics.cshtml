@@ -141,17 +141,18 @@
 		<div class="separator"></div>
 
         <button class="newsbutton delete" type="submit" onclick="openPopup()">Radera senaste mätning</button>
-		@* onclick="openPopup()"*@
+		
 		<div class="overlay"></div>
-	<div class="popup" id="popup">
+	<div class="popup" id="popup1">
 			<button class="closepopupwindow" onclick="closePopup()">X</button>
 
 		<h2>Är du säker på att du vill radera senaste mätning?</h2>
 			<form id="deleteLatest" name="deleteLatest" asp-controller="Patient" method="post" asp-action="DeleteLatestFromPatient"></form>
 			<button type="submit" form="deleteLatest" onclick="closePopup()">Radera senaste</button>
+			<button class="buttonNo" onclick="closePopup()">Avbryt</button>
 	</div>
 		<button class="newsbutton delete" type="submit" onclick="openPopup()">Radera all historik</button>
-		@* onclick="openPopup()"*@
+		
 		<div class="overlay"></div>
 		<div class="popup" id="popup">
 			<button class="closepopupwindow" onclick="closePopup()">X</button>
@@ -159,6 +160,7 @@
 			<h2>Är du säker på att du vill radera all tidigare historik?</h2>
 			<form id="deleteAll" name="deleteAll" asp-controller="Patient" method="post" asp-action="DeleteAllFromPatient"></form>
 			<button type="submit" form="deleteAll" onclick="closePopup()">Radera all historik</button>
+			<button class="buttonNo" onclick="closePopup()">Avbryt</button>
 		</div>
 		@*<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Radera senaste mätning</a>
         <a class="newsbutton delete" asp-controller="Patient" asp-action="Statistics">Radera all historik</a> *@
@@ -185,15 +187,22 @@
         });
 
     </script>
+	@*script för lightboxen*@
     <script>
 		// Get the popup and overlay elements
 		let popup = document.getElementById("popup");
+		let popup1 = document.getElementById("popup1")
 		let overlay = document.querySelector(".overlay");
 
 		function openPopup() {
 			// Show the popup and overlay
 			popup.classList.add("openPopup");
 			overlay.style.display = "block";
+		}
+		function openPopup1() {
+			// Show the popup and overlay
+			popup1.classList.add("openPopup");
+			overlay.style.display = "block";s
 		}
 
 		function closePopup() {

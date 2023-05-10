@@ -125,19 +125,19 @@
 	
 
 	<div class="controls">
-		@* kan inte göra såhär med submit, göm denna knapp i modal istället och gör JS trams*@
-	@*<input class="newsbutton submit" type="submit" form="newsform" value="Skicka in" />*@
+		
 
 		<button class="newsbutton submit" type="submit" onclick="openPopup()">Skicka in</button>
-		@* onclick="openPopup()"*@
+		
 		<div class="overlay"></div>
 		<div class="popup" id="popup">
 			<button class="closepopupwindow" onclick="closePopup()">X</button>		
-		<h2>Är du säker på att du vill skicka in?</h2> 
-		@*<div class="Något För att lägga knappar brevid varandra centrerat?">
-		<button>onclick="closePopup()">Nej</button> *@
-		<button type="submit" form="newsform" onclick="closePopup()">Ja</button>
-		@*</div>*@
+		<h2>Är du säker på att du vill skicka in?</h2>
+
+			<button type="submit" form="newsform" onclick="closePopup()" class="popup-button">Ja</button>
+			<button class="buttonNo" onclick="closePopup()">Nej</button>
+
+		
 	</div>
 	<div class="separator"></div>
 	<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa Åtgärd</a>
