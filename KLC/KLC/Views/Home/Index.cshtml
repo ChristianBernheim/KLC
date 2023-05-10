@@ -1,4 +1,6 @@
-﻿@{
+﻿@using KLC.Models
+@Model PatientViewModel
+@{
     ViewData["Title"] = "Home Page";
 }
 <link rel="stylesheet" href="~/css/NEWS.css" asp-append-version="true" />
@@ -16,12 +18,13 @@
 			<th>Personnummer</th>
 			<th>Länk</th>
 		</tr>			
-		@for (var i = 1; i <= 16; i++)
+		@for (var i = 0; i < 16; i++)
 		{
+			Patient element = @Model.AllPatients[i];
 			<tr>
-				<td>@i</td>
-				<td>N/A</td>
-				<td><a  class="newsbutton" asp-controller="Patient" asp-action="Index" asp-route-id="@i">Länk</a></td>
+				<td>@element.Id</td>
+				<td>@element.Personnummer</td>
+				<td><a  class="newsbutton" asp-controller="Patient" asp-action="Index" asp-route-id="@element.Id">Länk</a></td>
 			</tr>
 		}
 		</table>
