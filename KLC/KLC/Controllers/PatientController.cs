@@ -1,4 +1,4 @@
-﻿using KLC.Models;
+using KLC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Diagnostics;
@@ -264,6 +264,33 @@ namespace KLC.Controllers
             model.Matningar.Add(matning2);
             return View("Test",model);
         }
+        [HttpPost]
+        public async Task<IActionResult> DeleteAllFromPatient()
+        {
+            int currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.DeleteAsync("https://informatik13.ei.hv.se/klcapi/api/deleteAllFromPatient/" + currentPatientId))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
+            return Redirect("Index");
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteLatestFromPatient()
+        {
+            int currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.DeleteAsync("https://informatik13.ei.hv.se/klcapi/api/deleteLatestFromPatient/" + currentPatientId))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                }
+            }
+            return Redirect("Index");
+        }
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         
 
                 [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
