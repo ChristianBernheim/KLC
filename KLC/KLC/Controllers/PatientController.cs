@@ -281,30 +281,31 @@ namespace KLC.Controllers
             model.Matningar.Add(matning2);
             return View("Test",model);
         }
-        [HttpPost]
+        [HttpPost("DeleteAllFromPatient")]
+        [HttpPut]
+        [HttpDelete]
         public async Task<IActionResult> DeleteAllFromPatient()
         {
             int currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
-            using (var httpClient = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                using (var response = await httpClient.DeleteAsync("https://informatik13.ei.hv.se/klcapi/api/deleteAllFromPatient/" + currentPatientId))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                }
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.DeleteAsync("MatningNews2/deleteAllFromPatient/" + currentPatientId);          
             }
             return Redirect("Index");
         }
-        [HttpPost]
+        [HttpPost("DeleteLatestFromPatient")]
+        [HttpPut]
+        [HttpDelete]
         public async Task<IActionResult> DeleteLatestFromPatient()
         {
             int currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
-            using (var httpClient = new HttpClient())
+            using (HttpClient client = new HttpClient())
             {
-                using (var response = await httpClient.DeleteAsync("https://informatik13.ei.hv.se/klcapi/api/deleteLatestFromPatient/" + currentPatientId))
-                {
-                    string apiResponse = await response.Content.ReadAsStringAsync();
-                }
+                client.BaseAddress = new Uri(_baseUrl);
+                HttpResponseMessage response = await client.DeleteAsync("MatningNews2/deleteLatestFromPatient/" + currentPatientId);
             }
+
             return Redirect("Index");
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
