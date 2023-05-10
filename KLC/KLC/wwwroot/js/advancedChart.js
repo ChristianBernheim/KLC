@@ -36,8 +36,8 @@ let mChart = new Chart(ctx, {
     datasets: [
       {
         label: "Andningsfrekvens",
-        //hämtar alla värden ur data arrayen, för key "andningsfrekvens"
-        data: data.map((value) => value.andningsfrekvens),
+            //hämtar alla värden ur data arrayen, för key "andningsfrekvens"
+            data: data.map((value) => Math.abs(value.andningsfrekvens)),
         //Inställningar för chart, ex. hur mycket bezier curve man vill ha
         borderColor: "#488f31",
         backgroundColor: "#488f31",
@@ -46,8 +46,13 @@ let mChart = new Chart(ctx, {
         pointHoverRadius: mHoverBorderwidth,
       },
       {
-        label: "Syremättnad",
-        data: data.map((value) => value.syremättnad),
+          label: "Syremättnad",
+          data: data.map((value) => {
+              if (value.syremättnad >= 7) {
+                  value.syremättnad = value.syremättnad - 10;
+              }
+              return Math.abs(value.syremättnad);
+          }),
         borderColor: "#8aac49",
         backgroundColor: "#8aac49",
         borderWidth: mBorderwidth,
@@ -56,7 +61,7 @@ let mChart = new Chart(ctx, {
       },
       {
         label: "Tillförd syrgas",
-        data: data.map((value) => value.syrgas),
+          data: data.map((value) => Math.abs(value.syrgas)),
         borderColor: "#c6c96a",
         backgroundColor: "#c6c96a",
         borderWidth: mBorderwidth,
@@ -65,7 +70,7 @@ let mChart = new Chart(ctx, {
       },
       {
         label: "Systoliskt blodtryck",
-        data: data.map((value) => value.systolisktblodtryck),
+          data: data.map((value) => Math.abs(value.systolisktblodtryck)),
         borderColor: "#ffe792",
         backgroundColor: "#ffe792",
         borderWidth: mBorderwidth,
@@ -74,7 +79,7 @@ let mChart = new Chart(ctx, {
       },
       {
         label: "Pulsfrekvens",
-        data: data.map((value) => value.pulsfrekvens),
+          data: data.map((value) => Math.abs(value.pulsfrekvens)),
         borderColor: "#f8b267",
         backgroundColor: "#f8b267",
         borderWidth: mBorderwidth,
@@ -83,7 +88,7 @@ let mChart = new Chart(ctx, {
       },
       {
         label: "Medvetandegrad",
-        data: data.map((value) => value.medvetandegrad),
+          data: data.map((value) => Math.abs(value.medvetandegrad)),
         borderColor: "#eb7a52",
         backgroundColor: "#eb7a52",
         borderWidth: mBorderwidth,
@@ -92,7 +97,7 @@ let mChart = new Chart(ctx, {
       },
       {
         label: "Temperatur",
-        data: data.map((value) => value.temperatur),
+          data: data.map((value) => Math.abs(value.temperatur)),
         borderColor: "#de425b",
         backgroundColor: "#de425b",
         borderWidth: mBorderwidth,

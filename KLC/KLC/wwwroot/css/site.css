@@ -32,6 +32,8 @@
     --length-md-large: 96px;
     /*drop shadow*/
     --shadow-standard: 0 var(--length-sm-small) 2px rgba(0,0,0,0.3);
+    /*lightbox*/
+    --lightbox: rgba(0,0,0,0.5);
 }
 
 html {
@@ -237,6 +239,14 @@ th {
 
     gap: var(--length-sm-large);
     text-align:left;
+}
+/*earlier measurements*/
+.history {
+    display: flex;
+    flex-direction: column;
+    gap: var(--length-sm-large);
+    text-align: left;
+    overflow-x:scroll;
 }
 
 /*Popup/lightbox stuff*/

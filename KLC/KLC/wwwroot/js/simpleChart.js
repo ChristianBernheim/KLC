@@ -49,7 +49,12 @@ const NewsCalcToArray = (array) => {
     //make a map of the keys
       element = keys.map((key) => element[key]);
     //foreach element in keys map
-    element.forEach((value) => {
+      element.forEach((value) => {
+    //if syrgas2
+        if (value >= 7) {
+            value = value - 10;
+            console.log(value);
+        }
     //add to sum
     result.sum += Math.abs(value);
     //if any value is three flip flag
