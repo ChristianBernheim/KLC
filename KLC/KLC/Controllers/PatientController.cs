@@ -8,40 +8,47 @@ namespace KLC.Controllers
     [Route("[controller]")]
     public class PatientController : Controller
     {
-
         string _baseUrl = "https://informatik13.ei.hv.se/klcapi/api/";
+
+        private readonly ILogger<PatientController> _logger;
+
+        public PatientController(ILogger<PatientController> logger)
+        {
+            _logger = logger;
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> Index(int id)
         {
             //sätter patientId till session
-            if(id != 0) { 
-            HttpContext.Session.SetString("currentPatientId", id.ToString());
-                
+            if (id != 0)
+            {
+                HttpContext.Session.SetString("currentPatientId", id.ToString());
             }
 
             int currentPatientId;
             //om det finns user i session,sätt currpatid till sessionsvärde
             if (HttpContext.Session.GetString("currentPatientId") != null)
-			{
+            {
                 currentPatientId = int.Parse(HttpContext.Session.GetString("currentPatientId"));
-                
+
             }
             //redir till index om inget hittas
-			else
-			{
+            else
+            {
                 return RedirectToAction("Index", "Home");
-			}
+            }
             //RedirectToAction (string actionName, string controllerName);
-            
-            
+
+
             PatientViewModel model = new PatientViewModel();
             model.Patient = new Patient();
 
+            //hämta alla patienter från API
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri(_baseUrl);
-                HttpResponseMessage response = await client.GetAsync("patients/"+currentPatientId);
+                HttpResponseMessage response = await client.GetAsync("patients/" + currentPatientId);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -57,43 +64,32 @@ namespace KLC.Controllers
                 return View(model);
             }
         }
-    //****************************************************************//
 
-
-        private readonly ILogger<PatientController> _logger;
-
-        public PatientController(ILogger<PatientController> logger)
-        {
-            _logger = logger;
-        }
-
-        //public IActionResult Index()
-        //{
-        //   return View();
-        //}
-        [HttpGet]
+        [HttpGet("Results")]
         public IActionResult Results()
         {
             return View();
         }
 
-        [HttpPost("newsform")]
+        [HttpPost("Results")]
         public async Task<IActionResult> Results(IFormCollection collection)
         {
             //Får inte uppförslag i share tydligen...
+            //glöm inte sätta patientid <3
                 MatningNews2 model = new MatningNews2();
            
                 model.Andningsfrekvens = int.Parse(collection["andningsfrekvens"]);
-                model.
-                model.
-                model.
-                model.
-                model.
-                model.
-                model.
+                //model.
+                //model.
+                //model.
+                //model.
+                //model.
+                //model.
+                //model.
 
+             //postar till mätningar
              using (HttpClient client = new HttpClient())
-                {
+             {
                 client.BaseAddress = new Uri(_baseUrl);
                 //turn model into json string
                 var json = JsonConvert.SerializeObject(model);  
@@ -101,17 +97,18 @@ namespace KLC.Controllers
                 var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
                 //post content to endpoint
                 var response = await client.PostAsync("MatningNews2", content);
-
+                //redirects to get action
                 return RedirectToAction("Results","Patient");
-                }
+             }
         }
 
+        [HttpGet("Statistics")]
         public IActionResult Statistics()
         {
             return View();
         }
 
-
+        [HttpGet("Test")]
         public IActionResult Test()
         {
             PatientViewModel model = new PatientViewModel();
