@@ -33,7 +33,7 @@
     /*drop shadow*/
     --shadow-standard: 0 var(--length-sm-small) 2px rgba(0,0,0,0.3);
     /*lightbox*/
-    --lightbox: rgba(0,0,0,0.5);
+    --lightbox: rgba(0,0,0,0.7);
 }
 
 html {
@@ -261,6 +261,7 @@ th {
     text-align: center;
     padding: 30px 30px 30px 30px;
     box-shadow: var(--length-sm-small);
+    z-index:1000;
     visibility: hidden; 
     transition: transform 0.4s, top 0.4s; 
 }
@@ -301,4 +302,14 @@ th {
     padding: 0;
     margin: 0;
     line-height: 1;
+}
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--lightbox);
+    z-index: 999;
+    display: none; /* hide by default */
 }

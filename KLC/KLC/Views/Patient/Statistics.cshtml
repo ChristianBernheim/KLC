@@ -34,8 +34,28 @@
     <div class="controls">
 	    <a  class="newsbutton submit" asp-controller="Patient" asp-action="Index">Ny mätning</a>
         <div class="separator"></div>
-	    <a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Radera senaste mätning</a>
-        <a  class="newsbutton delete" asp-controller="Patient" asp-action="Statistics">Radera all historik</a> 
+
+
+        <button class="newsbutton" type="submit" onclick="openPopup()">Radera senaste mätning</button>
+		@* onclick="openPopup()"*@
+		<div class="overlay"></div>
+	<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closePopup()">X</button>
+
+		<h2>Är du säker på att du vill radera senaste mätning?</h2>
+			<button type="button" onclick="closePopup()">Radera senaste</button>
+	</div>
+		<button class="newsbutton delete" type="submit" onclick="openPopup()">Radera all historik</button>
+		@* onclick="openPopup()"*@
+		<div class="overlay"></div>
+		<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closePopup()">X</button>
+
+			<h2>Är du säker på att du vill radera all tidigare historik?</h2>
+			<button type="button" onclick="closePopup()">Radera all historik</button>
+		</div>
+		@*<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Radera senaste mätning</a>
+        <a class="newsbutton delete" asp-controller="Patient" asp-action="Statistics">Radera all historik</a> *@
 	</div>
     
     
@@ -58,6 +78,25 @@
         });
 
     </script>
+    <script>
+		// Get the popup and overlay elements
+		let popup = document.getElementById("popup");
+		let overlay = document.querySelector(".overlay");
+
+		function openPopup() {
+			// Show the popup and overlay
+			popup.classList.add("openPopup");
+			overlay.style.display = "block";
+		}
+
+		function closePopup() {
+			// Hide the popup and overlay
+			popup.classList.remove("openPopup");
+			overlay.style.display = "none";
+		}
+
+
+	</script>
 
 </div>
 
