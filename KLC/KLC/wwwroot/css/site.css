@@ -285,7 +285,8 @@ th {
     height: var(--length-md-medium);
     font-weight: bold;
     border: none;
-    background-color: var(--hv-blue-light);
+    background-color: var(--news-blue);
+    color: var(--white);
     border-radius: var(--length-sm-small);
     filter: drop-shadow(var(--shadow-standard));
     user-select: none;
@@ -329,12 +330,13 @@ th {
 
 /*Nej knapp på lightbox*/
 .popup .buttonNo {
-    background-color: var(--news-red);
+    background-color: var(--red);
+    color:var(--white);
     display: inline-block;
     margin-right: 10px;
 }
 
-.popup {
+/*.popup {
     width: 400px;
     background: var(--white);
     border-radius: 6px;
@@ -361,8 +363,8 @@ th {
     }
 .popup button {
     place-content: center;
-    width: 45%; /* adjust value as needed */
-    height: var(--length-md-medium);
+    width: 45%;*/ /* adjust value as needed */
+    /*height: var(--length-md-medium);
     font-weight: bold;
     border: none;
     background-color: var(--hv-blue-light);
@@ -379,8 +381,8 @@ th {
     background-color: var(--news-red);
     display: inline-block;
     margin-right: 0;
-    width: 45%; /* adjust value as needed */
-}
+    width: 45%;*/ /* adjust value as needed */
+/*}
 
 .popup .closepopupwindow {
     position: absolute;
@@ -404,13 +406,13 @@ th {
     height: 100%;
     background-color: var(--lightbox);
     z-index: 999;
-    display: none; /* hide by default */
-}
+    display: none;*/ /* hide by default */
+/*}*/
 
 /*Nej knapp på lightbox*/
-.popup .buttonNo {
+/*.popup .buttonNo {
     background-color: var(--news-red);
     display: inline-block;
     margin-right: 10px;
-}
+}*/
 
