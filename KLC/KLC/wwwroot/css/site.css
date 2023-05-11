@@ -55,8 +55,8 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
-  background-color:var(--hv-neutral-light);
+    margin-bottom: 60px;
+    background-color: var(--hv-neutral-light);
 }
 table {
     border-collapse: collapse;
@@ -79,7 +79,7 @@ th {
 }
 
 /* navbar hover effect*/
-.navbar-nav .nav-link:hover {
+    .navbar-nav .nav-link:hover {
     background-color: var(--hv-neutral-light);
     /*verkar inte fungera ?*/
     color: var(--white);
@@ -151,12 +151,13 @@ th {
     margin-top:var(--length-sm-medium)
 }
 /*controls section*/
-.controls{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:var(--length-md-small);
-    padding:var(--length-md-small);
+.controls {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items:center;
+    grid-gap: var(--length-md-small);
+    gap: var(--length-md-small);
+    padding: var(--length-md-small);
 }
 
 .controls a, .controls input {
@@ -226,8 +227,10 @@ th {
 }
 
 .options-container {
-    display: flex;
+    display: grid;
+    grid-template-columns:1fr 1fr;
     margin: 8px;
+    grid-gap: 4px;
     gap: 4px;
     align-items: center;
     justify-content: end;
@@ -286,7 +289,7 @@ th {
     font-weight: bold;
     border: none;
     background-color: var(--news-blue);
-    color: var(--white);
+    color: var(--white) !important;
     border-radius: var(--length-sm-small);
     filter: drop-shadow(var(--shadow-standard));
     user-select: none;
@@ -298,6 +301,7 @@ th {
 
 .popup .buttonNo {
     background-color: var(--news-red);
+    color: var(--white) !important;
     display: inline-block;
     margin-right: 0;
     width: 45%; /* adjust value as needed */
@@ -309,7 +313,7 @@ th {
     right: -15px;
     font-size: 20px;
     font-weight: bold;
-    color: red;
+    color: var(--red) !important;
     background-color: transparent;
     border: none;
     cursor: pointer;
