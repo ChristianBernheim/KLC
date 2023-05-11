@@ -140,32 +140,33 @@
 		<a  class="newsbutton" asp-controller="Patient" asp-action="Results">Visa åtgärd</a>
 		<div class="separator"></div>
 
-        <button class="newsbutton delete" type="submit" onclick="openPopup()">Radera senaste mätning</button>
+       <button class="newsbutton delete" type="submit" onclick="openPopup()" id="popupBtn">Radera senaste mätning</button>
 		
-		<div class="overlay"></div>
-	<div class="popup" id="popup1">
-			<button class="closepopupwindow" onclick="closePopup()">X</button>
+<div class="overlay"></div>
 
-		<h2>Är du säker på att du vill radera senaste mätning?</h2>
-			<form id="deleteLatest" name="deleteLatest" asp-controller="Patient" method="post" asp-action="DeleteLatestFromPatient"></form>
-			<button type="submit" form="deleteLatest" onclick="closePopup()">Radera senaste</button>
-			<button class="buttonNo" onclick="closePopup()">Avbryt</button>
-	</div>
-		<button class="newsbutton delete" type="submit" onclick="openPopup()">Radera all historik</button>
+<div class="popup" id="popup">
+			<button class="closepopupwindow" onclick="closeFirstPopup()">X</button>
+
+	<h2>Är du säker på att du vill radera senaste mätning?</h2>
+	<form id="deleteLatest" name="deleteLatest" asp-controller="Patient" method="post" asp-action="DeleteLatestFromPatient"></form>
+	<button type="submit" form="deleteLatest" onclick="closePopup()">Radera senaste</button>
+			<button class="buttonNo" onclick=closeFirstPopup()>Avbryt</button>
+</div>
+
+		<div class="popup" id="popup2">
+   <button class="closepopupwindow" onclick="closePopup()">X</button>
+   <h2>Är du säker på att du vill radera all tidigare historik?</h2>
+   <form id="deleteAll" name="deleteAll" asp-controller="Patient" method="post" asp-action="DeleteAllFromPatient"></form>
+   <button type="submit" form="deleteAll" onclick="closePopup()">Radera all historik</button>
+   <button class="buttonNo" onclick="closePopup()">Avbryt</button>
+</div>
+<button class="newsbutton delete" type="submit" id="popup2Btn">Radera all historik</button>
+
 		
-		<div class="overlay"></div>
-		<div class="popup" id="popup">
-			<button class="closepopupwindow" onclick="closePopup()">X</button>
-
-			<h2>Är du säker på att du vill radera all tidigare historik?</h2>
-			<form id="deleteAll" name="deleteAll" asp-controller="Patient" method="post" asp-action="DeleteAllFromPatient"></form>
-			<button type="submit" form="deleteAll" onclick="closePopup()">Radera all historik</button>
-			<button class="buttonNo" onclick="closePopup()">Avbryt</button>
-		</div>
-		@*<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Radera senaste mätning</a>
-        <a class="newsbutton delete" asp-controller="Patient" asp-action="Statistics">Radera all historik</a> *@
 	</div>
-    
+	
+	@*<a  class="newsbutton" asp-controller="Patient" asp-action="Statistics">Radera senaste mätning</a>
+	<a class="newsbutton delete" asp-controller="Patient" asp-action="Statistics">Radera all historik</a> *@
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.js"></script>
     <script type="module">
@@ -188,28 +189,44 @@
 
     </script>
 	@*script för lightboxen*@
-    <script>
-		// Get the popup and overlay elements
-		let popup = document.getElementById("popup");
-		let popup1 = document.getElementById("popup1")
-		let overlay = document.querySelector(".overlay");
+  <script>
+	// Get the popup and overlay elements
+	let popup = document.getElementById("popup");
+	let overlay = document.querySelector(".overlay");
 
-		function openPopup() {
-			// Show the popup and overlay
-			popup.classList.add("openPopup");
+	// Get the "Radera senaste mätning" button and add an event listener
+	let deleteBtn = document.querySelector(".delete");
+	deleteBtn.addEventListener("click", function() {
+		openPopup();
+	});
+
+	function openPopup() {
+		// Show the popup and overlay
+		popup.classList.add("openPopup");
+		overlay.style.display = "block";
+	}
+
+	function closeFirstPopup() {
+		// Hide the popup and overlay
+		popup.classList.remove("openPopup");
+		overlay.style.display = "none";
+	}
+</script>
+
+	
+	<script>
+		let popup2Btn = document.getElementById("popup2Btn");
+		let popup2 = document.getElementById("popup2");
+
+		popup2Btn.addEventListener("click", function () {
+			popup2.classList.add("openPopup");
 			overlay.style.display = "block";
-		}
-		function openPopup1() {
-			// Show the popup and overlay
-			popup1.classList.add("openPopup");
-			overlay.style.display = "block";s
-		}
-
+		});
 		function closePopup() {
-			// Hide the popup and overlay
-			popup.classList.remove("openPopup");
+			popup2.classList.remove("openPopup");
 			overlay.style.display = "none";
 		}
+		
 	</script>
 
 </div>
