@@ -149,16 +149,16 @@
 
 	<h2>Är du säker på att du vill radera senaste mätning?</h2>
 	<form id="deleteLatest" name="deleteLatest" asp-controller="Patient" method="post" asp-action="DeleteLatestFromPatient"></form>
-	<button type="submit" form="deleteLatest" onclick="closePopup()">Radera senaste</button>
-			<button class="buttonNo" onclick=closeFirstPopup()>Avbryt</button>
+			<button type="submit" class="buttonNo" form="deleteLatest" onclick="closePopup()">Radera</button>
+			<button onclick=closeFirstPopup()>Avbryt</button>
 </div>
 
 		<div class="popup" id="popup2">
    <button class="closepopupwindow" onclick="closePopup()">X</button>
    <h2>Är du säker på att du vill radera all tidigare historik?</h2>
    <form id="deleteAll" name="deleteAll" asp-controller="Patient" method="post" asp-action="DeleteAllFromPatient"></form>
-   <button type="submit" form="deleteAll" onclick="closePopup()">Radera all historik</button>
-   <button class="buttonNo" onclick="closePopup()">Avbryt</button>
+   <button type="submit" class="buttonNo" form="deleteAll" onclick="closePopup()">Radera</button>
+   <button onclick="closePopup()">Avbryt</button>
 </div>
 <button class="newsbutton delete" type="submit" id="popup2Btn">Radera all historik</button>
 
