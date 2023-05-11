@@ -1,7 +1,6 @@
 
 //hämta html element
 const canvas = document.querySelector("#simple-chart");
-console.log("hello");
 
 canvas.width = 500;
 canvas.height = 400;
