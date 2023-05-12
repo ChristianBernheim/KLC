@@ -234,10 +234,21 @@
                 }
             }
         };
-        result.action = ActionCalc(result.sum, threeFlag);
-        let date = new Date(Date.parse(item[item.length - 1]));
 
-        result.time = date.toUTCString().split(",")[0] + " " + date.getHours() + ":" + date.getMinutes();
+        result.action = ActionCalc(result.sum, threeFlag);
+ 
+		let input = item[item.length - 1];
+		let date = "";
+		let time = "";
+		date = input.split("T")[0];
+		date = date.substring(2);
+		time = input.split("T")[1];
+		time = time.split(":")[0]+":"+time.split(":")[1];
+
+		result.time = date+" "+time;
+
+        //let date = new Date(Date.parse(item[item.length - 1]));
+        //result.time = date.toUTCString().split(",")[0] + " " + date.getHours() + ":" + date.getMinutes();
         
         results.push(result);
 		});
