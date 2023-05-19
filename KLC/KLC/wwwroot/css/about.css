@@ -61,8 +61,11 @@
         .member:hover {
             transform: rotateX(-5deg);
         }
-
-    
+        /*Här skrivs kod för att kontrollera användarguiden*/
+.headingguide {
+    justify-content: center;
+    text-align: center;
+}
 
 
 
