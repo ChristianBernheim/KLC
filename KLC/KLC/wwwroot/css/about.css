@@ -71,10 +71,11 @@
     display: block;
     margin: 0 auto;
 }
-.usercontainer{
-    display:flex; 
+.usercontainer {
+    display: flex;
+    height:auto;
 }
-s
+
 
 
 
