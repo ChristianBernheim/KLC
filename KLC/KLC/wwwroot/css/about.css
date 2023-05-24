@@ -61,7 +61,7 @@
         .member:hover {
             transform: rotateX(-5deg);
         }
-        /*Här skrivs kod för att kontrollera användarguiden*/
+/*Här skrivs kod för att kontrollera användarguiden*/
 .headingguide {
     justify-content: center;
     text-align: center;
@@ -73,8 +73,14 @@
 }
 .usercontainer {
     display: flex;
-    height:auto;
+    height:500px;
 }
+    .usercontainer img {
+        height:100%;
+        width:45%;
+        object-fit: contain;
+        filter: drop-shadow(var(--shadow-standard));
+    }
 
 
 
